@@ -1,0 +1,40 @@
+<div ng-controller="NewAppCtrl as Ctrl">
+	<h1 class="text-center">
+		<span>Welcome!</span>
+		<br>
+	</h1>
+<hr>
+</div>
+<div ng-controller="NewAppCtrl" layout="column" layout-sm="column">
+	<div>
+		<md-content   layout-padding style="padding:24px">
+			<div>		
+					<h1 class="text-center">
+						<span>{{userData.name}}</span>
+						<br>
+						<span class="octicon octicon-octoface"></span>
+						<a href="{{userData.html_url}}" class="md-button"> Github:
+							{{userData.login}}
+						</a>
+					</h1>
+					<p class="text-center">
+						<span>{{userData.location}}</span>
+					</p>			
+					<p class="text-center">
+						<a href="{{userData.repos_url}}" target="_blank">{{userData.repos_url}}</a>
+					</p>	
+			</div>
+					<a ui-sref="MyRepos" ui-sref-active="active"><md-button class="md-raised md-primary"  ng-class="{'selected' : it === selected}">My Repos</md-button></a>
+					</a> 
+					<a ui-sref="FindUser" ui-sref-active="active"><md-button class="md-raised md-primary"  ng-class="{'selected' : it === selected}">Find Another user by Location</md-button></a>
+			<div>
+				<md-content layout="column" flex class="md-padding" selected="{{selected.name}}">
+					<div ui-view ></div>
+				</md-content>
+			</div>
+		</md-content>
+	</div>
+</div>
+
+	
+	
