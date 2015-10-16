@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en", ng-app="NewApp" class="qp-ui" data-qp-ui="{ 'Futurizr':{ 'hasTouch': 'touch'}}">
+	<head>
+		<meta charset="UTF-8">
+		<title>Delmar Extranet</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="author" content="Margarita Mayoral Villa" />
+		<meta name="description" content=""/>
+		
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular-animate.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular-aria.min.js"></script>
+		<script src="https://gitcdn.xyz/repo/angular/bower-material/v0.11.0/angular-material.js"></script>
+		<link rel="stylesheet" href="https://gitcdn.xyz/repo/angular/bower-material/v0.11.0/angular-material.css">
+		
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-material-icons/0.5.0/angular-material-icons.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.15/angular-ui-router.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.13.3/ui-bootstrap.min.js"></script>
+		
+		<script src="NewProjectApp.js"></script>
+		<script src="NewAppController.js"></script>
+		<script src="NewSidenavService.js"></script>
+		<script src="NewMainTools.js"></script>
+		<script src="NewThemingProvider.js"></script>
+		<script src="NewStateProvider.js"></script> 
+		<script src="NewRunState.js"></script>
+		<script src="TableCtrl.js"></script>
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=RobotoDraft:300,400,500,700,400italic"/>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">		
+		<link rel="stylesheet" href="main.css">		
+	</head>
+	
+	<body layout="column" ng-controller="NewAppCtrl" class="section-material-design md-accent qp-ui qp-ui-mask">
+		<!--[if lt IE 10]>
+		<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+		<![endif]-->		
+		<md-toolbar layout="row" class="md-whiteframe-z3 md-hue-3 md-medium">
+		<md-button ng-click="toggleSidenav('left')" hide-gt-md class="md-icon-button menuBtn">
+					<md-icon aria-label="Menu" md-svg-icon="https://s3-us-west-2.amazonaws.com/s.cdpn.io/68133/menu.svg"></md-icon>
+		</md-button>
+			<h1 layout-align-gt-sm="center center" layout-align="center center" class="md-toolbar-tools"><a href="index.html"><img src="https://www.delmarcargo.com/img/delmarcargo_logo_2x.png" alt="" width="185" height="45"></a></h1>
+			
+		</md-toolbar>
+		<md-content layout="row" layout-sm="column" flex class="content-wrapper">
+			<div ng-controller="NewToolsCtrl">
+				<md-sidenav layout="column"  class="md-sidenav-left md-whiteframe-z3" md-component-id="left" md-is-locked-open="$mdMedia('gt-sm')" >
+					<md-toolbar layout="row" class="md-whiteframe-z2 md-primary">
+						<h4 layout-align="center center" layout-align-gt-sm="center" class="md-toolbar-tools" fill-height layout-fill>Welcome!</h4>
+					</md-toolbar>
+					<md-content>
+							<div layout="row" layout-align="center center" layout-wrap >						
+								<md-whiteframe class="md-whiteframe-z1" layout layout-align="center center" ng-repeat="it in maintools" >
+									<a ui-sref="{{it.name}}" ui-sref-active="active"><md-button class="md-raised" ng-click="close()"  ng-class="{'selected' : it === selected}">{{it.name}}</md-button></a>
+								</md-whiteframe>
+							</div>
+					</md-content>
+				</md-sidenav>
+			</div>			
+			<div layout="row"  layout-sm="column" flex class="content-wrapper" id="primary-col">					
+				<div>
+					<md-content layout="column" flex class="md-padding" selected="{{selected.name}}">
+						<div ui-view ></div>
+					</md-content>
+				</div>				
+			</div>
+		</md-content>
+	
+	</body>
+</html>
