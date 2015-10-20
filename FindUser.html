@@ -1,46 +1,21 @@
 <div>
 
-<h2>Find another user by location</h2>
+<h2>Find another user by location and programming language</h2>
 <hr>
 						
 </div>
-<div>
-	<form name="location">
-		<span>
-			<h4> Location: </h4>
-			<input type="text" ng-model="user.location" placeholder="Location"/><br><br>
-		</span>
-		<br><br>
-	</form>
-	<p>Total number of users founded: {{usersData.total_count}} </p>
-	<p>{{usersData.incomplete_results}}</p>
-	<md-content>
-		<md-list>
-			<md-list-item class="md-grid-item-content" ng-repeat="item in usersData.items">
-				<div class="md-list-item-text" layout="column" flex="30">
-					<p>{{item.login}}</p>
-				</div>
-				<div></div>
-				<div class="md-list-item-text" layout="column" flex="30">
-					<a href="{{item.html_url}}" target="_blank">{{item.html_url}}</a>
-				</div>
-				<div class="md-list-item-text" layout="column" flex="30">
-					<a href="{{item.repos_url}}" target="_blank">{{item.repos_url}}</a>
-				</div>
-			</md-list-item>
-		</md-list>
-	</md-content>
-</div>
+<div ng-controller="NewAppCtrl as Ctrl">
+	
+	
+	<div>
 
-<div>
-	<form name="locationandlanguage">
-		<span>
-			<h4> Location: </h4>
-			<input type="text" ng-model="user.location" placeholder="Location"/><br><br>
-			<input type="text" ng-model="user.language" placeholder="Language"/><br><br>
-		</span>
-		<br><br>
-	</form>
+	<div class="input-group search-bar">
+		<input type="text" ng-model="search" ng-change="change()" onclick="select()" class="form-control" placeholder="Location" autofocus />
+		<span class="input-group-addon bar-style"><i class="glyphicon glyphicon-search"></i></span>
+		<input type="text" ng-model="search2" ng-change="change()" onclick="select()" class="form-control" placeholder="Language" autofocus />
+		<span class="input-group-addon bar-style"><i class="glyphicon glyphicon-search"></i></span>
+	</div>
+	
 	<p>Total number of users founded: {{usersData2.total_count}} </p>
 	<p>{{usersData2.incomplete_results}}</p>
 	<md-content>
@@ -59,5 +34,5 @@
 			</md-list-item>
 		</md-list>
 	</md-content>
+	</div>	
 </div>
-

@@ -7,8 +7,8 @@ angular
       content: 'home.html'
 	  }, {
       name: 'MyRepos'
-  }, {
-      name: 'FindUser'      
+		}, {
+      name: 'FindUser'          
   
   }];
 

@@ -34,44 +34,4 @@ angular
       url: '/FindUser',
       templateUrl: 'FindUser.html'
     })
-	.state('DelCRM', {
-      url: '/DelCRM',
-      templateUrl: 'Delcrm.html'
-    })
-	.state('DelBI', {
-      url: '/DelBI',
-      templateUrl: 'Delbi.html'
-    })
-	.state('DelDocs', {
-      url: '/DelDocs',
-      templateUrl: 'Deldocs.html'
-    })
-	.state('Accounts', {
-      url: '/Accounts',
-      templateUrl: 'accounts.html'
-    })
-	.state('Finance', {
-      url: '/Finance',
-      templateUrl: 'finance.html'
-    })
-	.state('Brokerage', {
-      url: '/Brokerage',
-      templateUrl: 'Brokerage.html'
-    })
-	.state('Freight', {
-      url: '/Freight',
-      templateUrl: 'Freight.html'
-    })
-	.state('Sales', {
-      url: '/Sales',
-      templateUrl: 'Sales.html'
-    })
-	.state('HR', {
-      url: '/HR',
-      templateUrl: 'hr.html'
-    })
-	.state('Links', {
-      url: '/Links',
-      templateUrl: 'links.html'
-    })
 }])

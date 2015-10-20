@@ -31,115 +31,129 @@ angular
   $scope.reposLoaded = false;
   $scope.userLoaded = false;
 
+   var pendingUserTask;
+   
+   if($scope.searchUser === undefined){
+      $scope.searchUser = "1012";
+      fetchUser();
+    };
+   
+   $scope.change = function(){
+	   if(pendingUserTask){
+		   clearTimeout(pendingUserTask);
+	   }
+	   pendingUserTask = setTimeout (fetchUser, 800);
+   };
   
-  $scope.username = "1012";
-  $http.get("https://api.github.com/users/"+$scope.username)
-	.success(function(data){
-		$scope.userData = data;
-		loadRepos();
-		    });
-	var loadRepos = function() {
-		$http.get($scope.userData.repos_url)
-			.success(function (data){
-				$scope.repoData = data;
-			});
+   function fetchUser(){
+	   $http.get("https://api.github.com/users/"+$scope.searchUser)
+		.success(function(data){
+			$scope.userData = data;
+			loadRepos();
+		 });
+		 var loadRepos = function() {
+		 $http.get($scope.userData.repos_url)
+			 .success(function (data){
+				 $scope.repoData = data;
+			 });
+	 };
 	};
+	
+	 $scope.update = function(login){
+		 $scope.searchUser = login;
+		 $scope.change();
+		
+	 };
+	
+	   $scope.select = function(){
+       this.setSelectionRange(0, this.value.length);
+     };
 	
 	$scope.predicate = '-updated_at';
 	
 	/////////////////////////////////////////////////////////////
+
 	
-	$scope.itemsLoaded = false;
-	$scope.location = "Mexico City";
-	$http.get("https://api.github.com/search/users?q=location:"+$scope.location)
-		.success(function(data2){
-				$scope.usersData = data2;
-				loadItems();
-			});
-			
-	//////////////////////////////////////////////////////////////
 	
+	$scope.counter = 0;
+	
+	if($scope.search === undefined){
+	$scope.search = "Toronto";
+		fetch();
+	};
+	
+	
+	$scope.change = function() {
+		if(pendingTask){
+			clearTimeout(pendingTask);
+		}
+		pendingTask = setTimeout(fetch, 800);
+	};
+	
+	function fetch(){
+			$http.get("https://api.github.com/search/users?q=location:"+$scope.search)
+			.success(function(data2){
+				 $scope.usersData = data2;
+				 loadItems();
+			 });
+	};
+	
+	$scope.update = function(users){
+		$scope.search = users.location;
+		$scope.change();
+		
+	};
+	
+	  $scope.select = function(){
+      this.setSelectionRange(0, this.value.length);
+    };
+	
+	///////////////////////////////////////////////////////////////////
+	
+	var pendingTask2;
+	
+	$scope.counter = 0;
+	
+	if($scope.search2 === undefined){
+	$scope.search2 = "Python";
+		fetch2();
+	};
+	
+	
+	$scope.change = function() {
+		if(pendingTask2){
+			clearTimeout(pendingTask2);
+		}
+		pendingTask2 = setTimeout(fetch2, 800);
+	};
+	
+	function fetch2(){
 	$scope.items2Loaded = false;
-	$scope.location2 = "Toronto";
-	$scope.language = "Python";
-	$http.get("https://api.github.com/search/users?q=language:"+$scope.language+'+'+$scope.location2)
+	
+	$http.get("https://api.github.com/search/users?q=location:"+$scope.search+"+language:"+$scope.search2)
 		.success(function(data3){
 			$scope.usersData2 = data3;
 			loadItems2();
 		});
+	}
 	
-	// $scope.master = null;
-	// $scope.update = function(input){
-		// $scope.master = angular.copy(input);
-	// };
-	// $scope.reset = function(){
-		 // $scope.input = angular.copy($scope.master);
-		 // };
-	//$scope.master = {location: "Mexico City"};
-	//$scope.user.location = "Toronto";
-	// $http.get("https://api.github.com/search/users?q=location:"+$scope.location)
-		// .success(function(data2){
-			// $scope.usersData = data2;
-			// loadItems();
-		// });
-		// var loadItems = function() {
-			// $http.get($scope.usersData.items)
-				// .success(function (data2){
-					// $scope.itemsData = data2;
-				// });
-		// };
+	$scope.update = function(users){
+		$scope.search2 = users.language;
+		$scope.change();
 		
-		// $scope.reset();
-		
- 
-  // if($scope.search === undefined){
-	  // $scope.search = "Sherlock Holmes";
-	  // fetch();
-  // }
-  
-  
-  
-  // $scope.change = function(){
-	  // if(pendingTask){
-		  // clearTimeout(pendingTask);
-	  // }
-	  // pendingTask = setTimeout(fetch,800);
-  // };
+	};
+	
+	  $scope.select = function(){
+      this.setSelectionRange(0, this.value.length);
+    };
+
   
     
   //*******************
   // Internal Methods
   //*******************
   
-  function querySearch (query){
-	var results = query?self.languages.filter(createFilterFor(query)): self.languages,
-			deferred;
-		if (self.simulateQuery){
-		deferred = $q.defer();
-		$timeout(function () { deferred.resolve(results);}, Math.random() * 1000, false);
-		return deferred.promise;
-		} else {
-		return results;
-		}
-	}
-	function searchTextChange(text) {
-		$log.info('Text changed to ' + text);
-	}
-	function selectedItemChange(item) {
-		$log.info('Item changed to' + JSON.stringify(item));
-	}
-	/**
-	*Build 'languages' list of key/value pairs
-	*/
-	function loadAllLanguages(){
-		var allLanguages = 'Chinese, English, French, Portuguese, Spanish';
-		return allLanguages.split(/, +/g).map(function (language){
-			return{
-				value: language.toLowerCase(),
-				display: language
-				};
-			});
-		}
+  
 	
 	 function loadMaintools() {
 	MainSidenavService.loadAllTools()
@@ -159,22 +173,7 @@ angular
     $scope.toggleSidenav('left');
   }
   
- // function fetch(){
-      // $http.get("http://www.omdbapi.com/?t=" + $scope.search + "&tomatoes=true&plot=full")
-       // .success(function(response){ $scope.details = response; });
-
-      // $http.get("http://www.omdbapi.com/?s=" + $scope.search)
-       // .success(function(response){  $scope.related = response; });
-    // }
-
-    // $scope.update = function(movie){
-      // $scope.search = movie.Title;
-      // $scope.change();
-    // };
-
-    // $scope.select = function(){
-      // this.setSelectionRange(0, this.value.length);
-    // }
+ 
 }])
 
 	
